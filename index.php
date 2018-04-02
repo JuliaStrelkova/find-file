@@ -27,7 +27,10 @@ function searchFiles($file, $dir)
     $filepath = $dir.'/'.$file;
     $files = [];
     if (file_exists($filepath)) {
-        $files[] = realpath(__DIR__.'/'.$filepath);
+        if($filepath[0] !== '/') {
+            $filepath = __DIR__.'/'.$filepath;
+        }
+        $files[] = realpath($filepath);
     }
 
     $filesDirs = scandir($dir, SCANDIR_SORT_ASCENDING);
